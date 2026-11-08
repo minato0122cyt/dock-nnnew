@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MINATO DOCK 新手使用說明</title>
+<meta name="description" content="MINATO DOCK 新手使用說明：登入、找檔案、預覽與下載。">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F3F5F8;--panel:#fff;--line:#D9DFE8;--text:#14213D;--mute:#5E6B82;--red:#E8412C;--teal:#1E8C84}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{margin:0;background:var(--bg);color:var(--text);font:400 16px/1.8 "Microsoft JhengHei","微軟正黑體","PingFang TC","Noto Sans TC",system-ui,sans-serif;
+background-image:radial-gradient(circle at 50% 100%,transparent 0 14px,rgba(30,140,132,.09) 14px 15px,transparent 15px 24px,rgba(30,140,132,.09) 24px 25px,transparent 25px),radial-gradient(circle at 0 100%,transparent 0 14px,rgba(30,140,132,.09) 14px 15px,transparent 15px 24px,rgba(30,140,132,.09) 24px 25px,transparent 25px);background-size:56px 28px;background-position:0 0,28px 14px}
+a{color:var(--teal)}
+:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+.seal{display:inline-grid;place-items:center;flex:none;width:34px;height:34px;background:var(--red);color:#fff;font:800 20px "Shippori Mincho",serif;border-radius:4px;transform:rotate(-4deg);overflow:hidden}
+.seal.img{background:transparent;transform:none;width:auto;height:30px;max-width:130px;border-radius:0;overflow:visible}.seal img{height:100%;width:auto;max-width:100%;object-fit:contain;display:block}
+.brand{display:flex;align-items:center;gap:12px}.brand b{font:800 19px "Shippori Mincho",serif;letter-spacing:.14em}
+/* 頂部列：平台網址與轉入按鈕 */
+.top{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(6px)}
+.top .in{max-width:900px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.top .url{flex:1;min-width:200px;display:flex;align-items:center;gap:8px;background:#EEF2F6;border:1px solid var(--line);border-radius:6px;padding:6px 10px;font-size:13px;color:var(--mute);overflow:hidden}
+.top .url span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
+.btn{display:inline-block;padding:9px 18px;border-radius:6px;border:1px solid var(--line);background:#fff;color:var(--text);text-decoration:none;font:500 14px/1.4 inherit;cursor:pointer;white-space:nowrap}
+.btn:hover{border-color:var(--teal);color:var(--teal)}
+.btn.pri{background:var(--red);border-color:var(--red);color:#fff}.btn.pri:hover{color:#fff;filter:brightness(1.08)}
+.btn.sm{padding:4px 10px;font-size:12px}
+main{max-width:900px;margin:0 auto;padding:36px 20px 20px}
+.hero{padding:28px 0 8px}
+.hero h1{margin:0 0 8px;font:600 clamp(26px,5vw,36px)/1.3 "Shippori Mincho",serif;letter-spacing:.1em}
+.hero p{margin:0;color:var(--mute)}.hero .tag{letter-spacing:.2em;font-size:14px}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 8px}
+.toc a{padding:6px 14px;border:1px solid var(--line);border-radius:99px;background:#fff;color:var(--mute);text-decoration:none;font-size:14px}.toc a:hover{border-color:var(--teal);color:var(--teal)}
+section{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:24px 26px;margin:18px 0}
+h2{margin:0 0 12px;font:600 22px "Shippori Mincho",serif;letter-spacing:.08em;display:flex;align-items:center;gap:10px}
+h2 i{font:normal 800 13px "Shippori Mincho",serif;background:var(--red);color:#fff;border-radius:4px;padding:1px 8px;letter-spacing:0}
+h3{margin:18px 0 6px;font-size:17px}
+p{margin:0 0 12px}p:last-child{margin-bottom:0}
+ul,ol{margin:0 0 12px;padding-left:22px}li{margin:4px 0}
+.note{background:#FDF3E7;border-left:3px solid var(--red);padding:10px 14px;border-radius:0 6px 6px 0;font-size:15px;margin:12px 0}
+.ok{background:#E9F5F3;border-left-color:var(--teal)}
+details{border-top:1px solid var(--line);padding:12px 0}details:first-of-type{border-top:0}
+summary{cursor:pointer;font-weight:500}summary::marker{color:var(--red)}
+details p{margin:8px 0 0;color:var(--mute);font-size:15px}
+.cta{text-align:center;padding:28px 20px}.cta p{color:var(--mute);margin-bottom:16px}
+footer{max-width:900px;margin:0 auto;padding:22px 20px 40px;text-align:center;color:var(--mute);font-size:13px;line-height:1.9}
+footer b{color:var(--text);font-family:"Shippori Mincho",serif;letter-spacing:.14em}
+@media(max-width:640px){body{font-size:17px}.top .in{padding:10px 14px}.top .url{order:3;flex-basis:100%}.top .btn.pri{margin-left:auto}main{padding:24px 14px 10px}section{padding:20px 18px}.btn{padding:11px 18px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="in">
+    <div class="brand"><span class="seal" id="seal">港</span><b>MINATO DOCK</b></div>
+    <div class="url" title="平台網址"><span id="urlText"></span><button class="btn sm" id="copy" type="button">複製網址</button></div>
+    <a class="btn pri" id="go" href="#" target="_blank" rel="noopener">前往 MINATO DOCK</a>
+  </div>
+</div>
+
+<main>
+  <div class="hero">
+    <h1>新手使用說明</h1>
+    <p class="tag">靜謐運行，卓越不凡</p>
+    <p style="margin-top:14px">第一次使用 MINATO DOCK？這份說明約 3 分鐘讀完，讀完就能開始。</p>
+  </div>
+
+  <nav class="toc" aria-label="目錄">
+    <a href="#before">開始之前</a><a href="#login">登入</a><a href="#files">找檔案</a><a href="#preview">預覽須知</a><a href="#more">公告與個人資訊</a><a href="#mobile">手機</a><a href="#faq">常見問題</a><a href="#rules">使用守則</a>
+  </nav>
+
+  <section id="welcome">
+    <h2>歡迎登船</h2>
+    <p>MINATO DOCK 是一個小型的雲端檔案管理平台。管理員會把檔案指派給你，你登入後就能依權限預覽、在新分頁開啟或下載。</p>
+  </section>
+
+  <section id="before">
+    <h2>開始之前</h2>
+    <p>你需要以下<b>任一種</b>登入方式：</p>
+    <ul>
+      <li>管理員提供的<b>帳號與密碼</b></li>
+      <li>管理員已經登錄你的 <b>Gmail</b>（可用 Google 登入）</li>
+    </ul>
+    <p>電腦與手機的瀏覽器都可以使用，不需要安裝任何東西。</p>
+  </section>
+
+  <section id="login">
+    <h2><i>1</i>登入</h2>
+    <h3>方式一：帳號密碼</h3>
+    <ol>
+      <li>打開平台網址（本頁最上方的按鈕就是）。</li>
+      <li>輸入管理員給你的帳號與密碼，按「登入」。</li>
+    </ol>
+    <div class="note">請勿使用其他網站的密碼，避免不必要的風險。</div>
+    <h3>方式二：Google 登入</h3>
+    <ol>
+      <li>按「以 Google 帳戶登入」，選擇管理員登錄的那個 Gmail。</li>
+      <li>第一次會出現授權畫面，可能顯示「Google 尚未驗證這個應用程式」，這是正常的。請依序點「進階」→「前往」→「允許」。</li>
+      <li>完成後會自動回到平台，直接進入檔案頁。</li>
+    </ol>
+    <div class="note ok">平台只會讀取你的 Email 地址，用來比對後台名單，不會存取你的 Drive 或信件。</div>
+    <p>如果顯示「此 Gmail 尚未被登錄」，請聯絡管理員。登入後重新整理頁面<b>不會被登出</b>。</p>
+  </section>
+
+  <section id="files">
+    <h2><i>2</i>找到你的檔案</h2>
+    <p>登入後會直接看到「<b>檔案</b>」頁，這裡列出管理員指派給你的所有檔案。</p>
+    <ul>
+      <li><b>搜尋</b>：在搜尋框輸入檔名關鍵字。</li>
+      <li><b>分類</b>：上方的分類按鈕可以只看某一類的檔案。</li>
+      <li><b>排序</b>：預設最新的檔案在最前面，也可改成最舊優先或依名稱。</li>
+      <li><b>檢視方式</b>：可在「卡片」與「列表」之間切換。</li>
+    </ul>
+    <p>每個檔案有三種操作，管理員會分別決定開放哪些，<b>沒看到的按鈕就是未開放</b>：</p>
+    <ul>
+      <li><b>預覽</b>：在平台內直接開啟檢視。</li>
+      <li><b>新分頁</b>：用瀏覽器新分頁開啟。</li>
+      <li><b>下載</b>：把檔案存到你的裝置。</li>
+    </ul>
+    <div class="note">檔案可能設有到期日，到期後會自動從你的清單消失。</div>
+  </section>
+
+  <section id="preview">
+    <h2>預覽時請注意</h2>
+    <p>預覽畫面會疊上你的名稱與時間，平台也會記錄登入、預覽與下載。這是為了追蹤與提醒，請放心使用，但也請勿外流檔案內容。</p>
+  </section>
+
+  <section id="more">
+    <h2><i>3</i>公告、個人資訊與意見回饋</h2>
+    <p><b>公告</b>：管理員的最新消息會放在這裡，置頂的在最上面。有些公告會附上圖片、檔案或連結。</p>
+    <p><b>個人資訊</b>：可以修改顯示名稱、綁定或修改信箱（Google 登入需要用到）、更改密碼。</p>
+    <p><b>意見回饋</b>：有建議或遇到問題，到這裡留言。管理員回覆後，你也能在同一頁看到。</p>
+  </section>
+
+  <section id="mobile">
+    <h2>用手機的小技巧</h2>
+    <p>手機版會在畫面底部出現選單，單手也好操作。想快速開啟，可以把網頁加到主畫面：</p>
+    <ul>
+      <li><b>iPhone</b>：用 Safari 開啟平台，按分享按鈕，選「加入主畫面」。</li>
+      <li><b>Android</b>：用 Chrome 開啟平台，點右上角選單，選「加到主畫面」。</li>
+    </ul>
+  </section>
+
+  <section id="faq">
+    <h2>常見問題</h2>
+    <details><summary>看不到應該有的檔案？</summary><p>請聯絡管理員，確認檔案是否已指派給你、是否已超過到期日。</p></details>
+    <details><summary>預覽是空白的？</summary><p>先重新整理頁面，或改用「新分頁」開啟。還是不行，請告訴管理員。</p></details>
+    <details><summary>Google 登入出現錯誤？</summary><p>回到登入頁再按一次，或改用帳號密碼登入。如果一直失敗，請確認你選的是管理員登錄的那個 Gmail。</p></details>
+    <details><summary>下載沒反應？</summary><p>瀏覽器可能擋掉了彈出視窗，允許之後再試一次。</p></details>
+    <details><summary>忘記密碼？</summary><p>請聯絡管理員重設。</p></details>
+    <details><summary>我該怎麼回報問題或提出建議？</summary><p>登入後到「意見回饋」留言，或直接聯絡管理員。</p></details>
+  </section>
+
+  <section id="rules">
+    <h2>使用守則</h2>
+    <p>檔案僅供被指派者本人使用，請勿轉傳、公開張貼，或提供給未被指派的人。詳細內容請見平台內的「理念與版權」。</p>
+    <p>聯絡管理員：<span id="mail"></span>，或登入後在「意見回饋」留言。</p>
+    <p style="color:var(--mute);font-size:15px"><b>備註：</b>使用本平台即代表你同意版權說明與本使用說明。</p>
+  </section>
+
+  <section class="cta">
+    <p>準備好了嗎？</p>
+    <a class="btn pri" id="go2" href="#" target="_blank" rel="noopener">前往 MINATO DOCK</a>
+  </section>
+</main>
+
+<footer>
+  <div><b>MINATO DOCK</b>　靜謐運行，卓越不凡</div>
+  <div>© 2026 MINATO DOCK. 版權所有，未經授權請勿轉載、重製或散布。</div>
+</footer>
+
+<script>
+/* ===== 只需要改這三個 ===== */
+var PLATFORM_URL = 'https://script.google.com/macros/s/AKfycbzWfoyBcwc5vLzseEvM7uTUKgRRBKtXjjnmroiNw09K9L7GZgvKpaE_IUboCHbrKVSi/exec'; // 主平台部署網址（/exec 結尾）
+var MAIL = '【minatocyt0122@gmail.com】';   // 管理員聯絡信箱，填入後會自動變成可點的連結
+var LOGO_URL = '';             // 想用圖片當標誌時填網址（可放 GIF），留空則顯示「港」印章
+/* ========================= */
+(function () {
+  var $ = function (i) { return document.getElementById(i); };
+  $('urlText').textContent = PLATFORM_URL;
+  $('go').href = PLATFORM_URL; $('go2').href = PLATFORM_URL;
+  if (MAIL.indexOf('@') > 0) {
+    var a = document.createElement('a'); a.href = 'mailto:' + MAIL; a.textContent = MAIL; $('mail').appendChild(a);
+  } else { $('mail').textContent = MAIL; }
+  if (LOGO_URL) {
+    var s = $('seal'); s.className = 'seal img';
+    var im = document.createElement('img'); im.src = LOGO_URL; im.alt = 'MINATO DOCK'; s.textContent = ''; s.appendChild(im);
+  }
+  $('copy').onclick = function () {
+    var b = this, ok = function () { b.textContent = '已複製'; setTimeout(function () { b.textContent = '複製網址'; }, 1600); };
+    if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(PLATFORM_URL).then(ok, function () { prompt('請手動複製網址', PLATFORM_URL); }); }
+    else { prompt('請手動複製網址', PLATFORM_URL); }
+  };
+})();
+</script>
+</body>
+</html>
